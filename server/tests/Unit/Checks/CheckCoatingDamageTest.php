@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Demo\Tests\Unit\Outcomes;
+namespace Demo\Tests\Unit\Checks;
 
 use PHPUnit\Framework\TestCase;
-use Demo\Outcomes\IsModThree;
+use Demo\Checks\CheckCoatingDamage;
 
-final class IsModThreeTest extends TestCase
+final class CheckCoatingDamageTest extends TestCase
 {
-    private IsModThree $subject;
+    private CheckCoatingDamage $subject;
 
     protected function setUp(): void
     {
-        $this->subject = new IsModThree();
+        $this->subject = new CheckCoatingDamage();
     }
 
     /**

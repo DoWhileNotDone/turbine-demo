@@ -3,13 +3,13 @@ import React from 'react';
 const Card = ({component}) => {
 
   const isCoatingDamaged = outcome => {
-      if (outcome === 'cd' || outcome === 'cdls') {
+      if (outcome.includes('cd')) {
           return <span className="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#coatingdamage</span>
       }
   }
 
   const isLightningDamaged = outcome => {
-    if (outcome === 'ls' || outcome === 'cdls') {
+    if (outcome.includes('ls')) {
         return <span className="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#lightningstrike</span>
     }
   }    

@@ -2,34 +2,30 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Demo\Validate\ValidateComponentGetRequest;
+use Demo\Validate\ValidateParams;
 use Demo\Validate\ValidateIdPresent;
 use Demo\Validate\ValidateIdIsInteger;
 use Demo\Extract\ComponentGetExtractValues;
 use Demo\PerformComponentChecks;
-use Demo\Outcomes\IsModFifteen;
-use Demo\Outcomes\IsModFive;
-use Demo\Outcomes\IsModThree;
-use Demo\Outcomes\IsStandard;
+use Demo\Checks\CheckCoatingDamage;
+use Demo\Checks\CheckLightningStrike;
 
 try {
-    (new ValidateComponentGetRequest(
+    (new ValidateParams(
         $_GET,
         [
             new ValidateIdPresent(),
             new ValidateIdIsInteger(),
         ],
     ))->validate();
-
-    $extractor = new ComponentGetExtractValues($_GET);
+    
+    $component_id = (new ComponentGetExtractValues($_GET))->id();
 
     $outcome = (new PerformComponentChecks(
-        $extractor,
+        $component_id,
         [
-            new IsModFifteen(),
-            new IsModFive(),
-            new IsModThree(),
-            new IsStandard(),
+            new CheckCoatingDamage(),
+            new CheckLightningStrike(),
         ],
     ))->run();
 
@@ -37,10 +33,10 @@ try {
     header('Content-type: application/json');
      
     echo json_encode(
-        new class($extractor->id(), $outcome) {
+        new class($component_id, $outcome) {
             public function __construct(
                 public int $component_id,
-                public string $outcome,
+                public array $outcome,
             ) {}
         }
     );
@@ -48,5 +44,8 @@ try {
     http_response_code(400);
 } catch (\Throwable $th) {
     //TODO: Log
+
+    die(print_r($th->getMessage(), true));
+
     http_response_code(500);
 }

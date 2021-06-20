@@ -1,8 +1,8 @@
 <?php
 
-namespace Demo\Outcomes;
+namespace Demo\Checks;
 
-final class IsModFive
+final class CheckLightningStrike
 {
     public function __invoke(int $id): string
     {

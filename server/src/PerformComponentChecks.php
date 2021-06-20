@@ -2,25 +2,22 @@
 
 namespace Demo;
 
-use Demo\Extract\ComponentGetExtractValues;
-
 final class PerformComponentChecks
 {
     public function __construct(
-        private ComponentGetExtractValues $extractor,
+        private int $component_id,
         private array $outcomes,
     ) {}
 
-    public function run(): string
+    public function run(): array
     {
-        $id = $this->extractor->id();
-        $result = '';
+        $results = [];
         foreach ($this->outcomes as $outcome_to_check) {
-            $result = call_user_func($outcome_to_check, $id);
+            $result = call_user_func($outcome_to_check, $this->component_id);
             if ($result !== '') {
-                break;
+                $results[] = $result;
             }
         }
-        return $result;
+        return $results;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Demo\Validate;
 
-final class ValidateComponentGetRequest implements ValidationInterface
+final class ValidateParams implements ValidationInterface
 {
     public function __construct(
         private array $params,

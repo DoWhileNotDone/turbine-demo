@@ -1,8 +1,8 @@
 <?php
 
-namespace Demo\Outcomes;
+namespace Demo\Checks;
 
-final class IsModThree
+final class CheckCoatingDamage
 {
     public function __invoke(int $id): string
     {
